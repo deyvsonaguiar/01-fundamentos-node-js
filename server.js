@@ -13,6 +13,7 @@ const server = http.createServer((req, res) => {
       .setHeader("Content-Type", "application/json")
       .end(JSON.stringify(users));
   }
+
   if (method === "POST" && url === "/users") {
     users.push({
       id: 1,
@@ -20,9 +21,10 @@ const server = http.createServer((req, res) => {
       email: "deyvsonaguiar@gmail.com",
     });
 
-    return res.end("Criação de usuários");
+    return res.writeHead(201).end();
   }
-  return res.end("Hello ignite");
+
+  return res.writeHead(404).end("This route don't exists!");
 });
 
 server.listen(3333);
