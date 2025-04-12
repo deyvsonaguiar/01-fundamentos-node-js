@@ -1,25 +1,28 @@
 import http from "node:http";
+import { Database } from "./database.js";
 
 //GET users => buscar usuários
 //POST users => criar usuários
 
-const users = [];
+const database = new Database();
 
 const server = http.createServer((req, res) => {
   const { method, url } = req;
 
   if (method === "GET" && url === "/users") {
-    return res
-      .setHeader("Content-Type", "application/json")
-      .end(JSON.stringify(users));
+    const users = database.select("users");
+
+    return res.end(JSON.stringify(users));
   }
 
   if (method === "POST" && url === "/users") {
-    users.push({
+    const users = {
       id: 1,
       name: "Deyvson",
       email: "deyvsonaguiar@gmail.com",
-    });
+    };
+
+    database.insert("users", users);
 
     return res.writeHead(201).end();
   }
