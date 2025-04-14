@@ -1,5 +1,6 @@
 import http from "node:http";
 import { Database } from "./database.js";
+import { randomUUID } from "node:crypto";
 
 //GET users => buscar usuários
 //POST users => criar usuários
@@ -17,7 +18,7 @@ const server = http.createServer((req, res) => {
 
   if (method === "POST" && url === "/users") {
     const users = {
-      id: 1,
+      id: randomUUID(),
       name: "Deyvson",
       email: "deyvsonaguiar@gmail.com",
     };
